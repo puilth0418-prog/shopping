@@ -1,1 +1,16 @@
+name: CI
 
+# main 브랜치에 push 또는 pull_request가 일어날 때 실행하도록 설정
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a script
+        run: echo Hello, World!
