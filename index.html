@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLURTY | Confidence Begins with Style</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blurty: {
+                            bg: '#fcfcfd',
+                            card: '#ffffff',
+                            dark: '#0f0f11',
+                            subtle: '#62626a',
+                            pink: '#ff2d75',
+                            pinklight: '#fff0f4',
+                            border: '#f0f0f3',
+                            graybg: '#f7f7f9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Noto Sans KR', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fcfcfd;
+            color: #0f0f11;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Glassmorphism Header */
+        .header-glass {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Minimal Card Shadow */
+        .clean-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+        }
+        .clean-shadow-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .clean-shadow-hover:hover {
+            box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        /* Image Zoom Animation */
+        .img-zoom {
+            overflow: hidden;
+        }
+        .img-zoom img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Hotspot Pulse */
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.35); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+        .hotspot-pulse {
+            animation: subtle-pulse 2.2s infinite ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fcfcfd;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2d75;
+        }
+    </style>
+</head>
+<body class="antialiased text-blurty-dark selection:bg-blurty-pink selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-blurty-dark text-white text-[11px] py-2 px-4 font-medium tracking-wide">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="hidden md:inline-block text-gray-400 font-mono">ABLURTY D2C STORE</span>
+            <p class="mx-auto md:mx-0 font-medium">
+                <span class="text-blurty-pink font-bold mr-1.5">[NEW FW]</span> "힙함에 러블리를 번지게 하다" • 첫 구매 무료배송 & 10% 쿠폰
+            </p>
+            <a href="#pb-line" onclick="filterCategory('PB LINE')" class="hidden md:inline-block text-gray-300 hover:text-white transition-colors underline underline-offset-2">PB LINE 보러가기</a>
+        </div>
+    </div>
+
+    <!-- Header Navigation Bar -->
+    <header class="sticky top-0 z-40 header-glass border-b border-blurty-border transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                
+                <!-- Left Menu Toggle for Mobile -->
+                <div class="flex items-center lg:hidden">
+                    <button id="mobile-menu-btn" class="p-2 text-blurty-dark focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Center/Left Logo -->
+                <div class="flex items-center gap-10">
+                    <a href="#" class="inline-block group">
+                        <span class="text-2xl sm:text-3xl font-black tracking-tight text-blurty-dark lowercase group-hover:text-blurty-pink transition-colors">blurty</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-blurty-pink inline-block ml-0.5"></span>
+                    </a>
+
+                    <!-- Desktop Category Navigation -->
+                    <nav class="hidden lg:flex items-center space-x-8 text-[12px] font-semibold tracking-wider text-gray-700">
+                        <a href="#all" onclick="filterCategory('ALL')" class="nav-link hover:text-blurty-pink transition-colors py-1">ALL</a>
+                        <a href="#tops" onclick="filterCategory('TOPS')" class="nav-link hover:text-blurty-pink transition-colors py-1">TOPS</a>
+                        <a href="#bottoms" onclick="filterCategory('BOTTOMS')" class="nav-link hover:text-blurty-pink transition-colors py-1">BOTTOMS</a>
+                        <a href="#outerwear" onclick="filterCategory('OUTERWEAR')" class="nav-link hover:text-blurty-pink transition-colors py-1">OUTERWEAR</a>
+                        <a href="#accessories" onclick="filterCategory('ACCESSORIES')" class="nav-link hover:text-blurty-pink transition-colors py-1">ACCESSORIES</a>
+                        <a href="#shoes" onclick="filterCategory('SHOES')" class="nav-link hover:text-blurty-pink transition-colors py-1">SHOES</a>
+                        <a href="#pb-line" onclick="filterCategory('PB LINE')" class="nav-link text-blurty-pink hover:text-blurty-dark transition-colors font-bold flex items-center gap-1 bg-blurty-pinklight px-2.5 py-1 rounded-full text-[11px]">
+                            <i class="fa-solid fa-sparkles text-[9px]"></i> PB LINE
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Right Action Icons -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <button onclick="toggleSearchModal()" class="w-9 h-9 rounded-full bg-blurty-graybg flex items-center justify-center text-blurty-dark hover:bg-blurty-dark hover:text-white transition-all text-xs" title="Search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button onclick="openWishlist()" class="w-9 h-9 rounded-full bg-blurty-graybg flex items-center justify-center text-blurty-dark hover:bg-blurty-dark hover:text-white transition-all relative text-xs" title="Wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                        <span id="wishlist-count" class="absolute -top-1 -right-1 bg-blurty-pink text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">0</span>
+                    </button>
+                    <button onclick="toggleCart()" class="w-9 h-9 rounded-full bg-blurty-dark text-white flex items-center justify-center hover:bg-blurty-pink transition-all relative text-xs" title="Cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-blurty-pink text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-blurty-border bg-white px-6 py-5 space-y-3">
+            <a href="#all" onclick="filterCategory('ALL'); toggleMobileMenu()" class="block text-xs font-bold tracking-wider text-blurty-dark hover:text-blurty-pink">ALL</a>
+            <a href="#tops" onclick="filterCategory('TOPS'); toggleMobileMenu()" class="block text-xs font-semibold tracking-wider text-gray-600 hover:text-blurty-dark">TOPS</a>
+            <a href="#bottoms" onclick="filterCategory('BOTTOMS'); toggleMobileMenu()" class="block text-xs font-semibold tracking-wider text-gray-600 hover:text-blurty-dark">BOTTOMS</a>
+            <a href="#outerwear" onclick="filterCategory('OUTERWEAR'); toggleMobileMenu()" class="block text-xs font-semibold tracking-wider text-gray-600 hover:text-blurty-dark">OUTERWEAR</a>
+            <a href="#accessories" onclick="filterCategory('ACCESSORIES'); toggleMobileMenu()" class="block text-xs font-semibold tracking-wider text-gray-600 hover:text-blurty-dark">ACCESSORIES</a>
+            <a href="#shoes" onclick="filterCategory('SHOES'); toggleMobileMenu()" class="block text-xs font-semibold tracking-wider text-gray-600 hover:text-blurty-dark">SHOES</a>
+            <a href="#pb-line" onclick="filterCategory('PB LINE'); toggleMobileMenu()" class="block text-xs font-bold tracking-wider text-blurty-pink">PB LINE (시그니처)</a>
+        </div>
+    </header>
+
+    <!-- Editorial Hero Banner -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+        <div class="relative w-full rounded-2xl overflow-hidden bg-[#e9e8e6] border border-gray-200 min-h-[420px] lg:h-[480px] flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 lg:p-12">
+            
+            <!-- Left Editorial Text Content -->
+            <div class="z-10 max-w-xl space-y-4 text-blurty-dark py-4 md:py-0">
+                <div class="flex items-center gap-2 text-[11px] font-bold tracking-widest text-gray-500 uppercase">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blurty-pink"></span>
+                    NEW COLLECTION 2026 FW
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-blurty-dark">
+                    힙함과 러블리가<br>
+                    <span class="text-blurty-pink font-black">번지는</span> 순간.
+                </h1>
+
+                <p class="text-xs sm:text-sm font-medium text-gray-600 max-w-md leading-relaxed">
+                    스트릿 무드의 자유로움 속 여리여리한 디테일. 미니멀 스튜디오 핏으로 정돈된 블러티 시그니처 룩북을 확인해보세요.
+                </p>
+
+                <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <a href="#catalog" class="bg-blurty-dark text-white font-bold text-xs px-7 py-3.5 rounded-none hover:bg-blurty-pink transition-all tracking-wider uppercase">
+                        SHOP NOW
+                    </a>
+                    <a href="#lookbook-interactive" class="border border-blurty-dark text-blurty-dark font-bold text-xs px-7 py-3.5 rounded-none hover:bg-blurty-dark hover:text-white transition-all tracking-wider uppercase">
+                        EXPLORE LOOKBOOK
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Minimal Model Visual -->
+            <div class="relative w-full md:w-1/2 h-64 sm:h-80 md:h-full flex items-center justify-center overflow-hidden rounded-xl md:rounded-none">
+                <span class="absolute text-[80px] sm:text-[120px] lg:text-[150px] font-black text-black/[0.04] tracking-tighter select-none pointer-events-none uppercase">
+                    BLURTY
+                </span>
+
+                <img src="./images/clo_4.jpeg" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80';"
+                     alt="BLURTY High Fashion Model" 
+                     class="h-full w-auto object-cover object-top mix-blend-multiply drop-shadow-md transition-transform duration-700 hover:scale-105">
+            </div>
+        </div>
+
+        <!-- Sleek Feature Strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 text-blurty-dark text-[11px] font-semibold border-t border-b border-blurty-border py-4 px-2">
+            <div class="flex items-center gap-2.5 justify-center md:justify-start">
+                <i class="fa-solid fa-truck-fast text-xs text-gray-700"></i>
+                <span>FAST DELIVERY <span class="text-gray-400 font-normal">| 당일 출고</span></span>
+            </div>
+            <div class="flex items-center gap-2.5 justify-center md:justify-start">
+                <i class="fa-solid fa-rotate-left text-xs text-gray-700"></i>
+                <span>EASY RETURNS <span class="text-gray-400 font-normal">| 무료 교환/반품</span></span>
+            </div>
+            <div class="flex items-center gap-2.5 justify-center md:justify-start">
+                <i class="fa-solid fa-gem text-xs text-gray-700"></i>
+                <span>QUALITY ASSURED <span class="text-gray-400 font-normal">| 자체 프리미엄 라인</span></span>
+            </div>
+            <div class="flex items-center gap-2.5 justify-center md:justify-start">
+                <i class="fa-solid fa-shield-halved text-xs text-gray-700"></i>
+                <span>SECURE PAYMENT <span class="text-gray-400 font-normal">| 안전 결제</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Catalog Header & Filter Pills -->
+    <section id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 pb-4 border-b border-blurty-border">
+            <div>
+                <span class="text-xs font-bold text-blurty-pink uppercase tracking-widest block mb-1">BEST SELECTION</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-blurty-dark tracking-tight">
+                    TREND CATALOG
+                </h2>
+            </div>
+
+            <!-- Filter Pills Bar -->
+            <div class="flex flex-wrap gap-1.5 text-xs font-medium">
+                <button onclick="filterCategory('ALL')" class="cat-btn active px-4 py-2 rounded-full bg-blurty-dark text-white transition-all shadow-sm">ALL</button>
+                <button onclick="filterCategory('TOPS')" class="cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all">TOPS</button>
+                <button onclick="filterCategory('BOTTOMS')" class="cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all">BOTTOMS</button>
+                <button onclick="filterCategory('OUTERWEAR')" class="cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all">OUTERWEAR</button>
+                <button onclick="filterCategory('ACCESSORIES')" class="cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all">ACCESSORIES</button>
+                <button onclick="filterCategory('SHOES')" class="cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all">SHOES</button>
+                <button onclick="filterCategory('PB LINE')" class="cat-btn px-4 py-2 rounded-full bg-blurty-pinklight text-blurty-pink font-bold hover:bg-blurty-pink hover:text-white transition-all">PB LINE</button>
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Rendered dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Editorial Philosophy Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-blurty-border">
+        <div class="bg-blurty-graybg rounded-3xl p-6 sm:p-12 border border-blurty-border">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left Image Card -->
+                <div class="lg:col-span-5 img-zoom rounded-2xl overflow-hidden h-[380px] sm:h-[450px] shadow-sm relative">
+                    <img src="./images/clo_3.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80';" alt="Philosophy Fashion Visual" class="w-full h-full object-cover">
+                    <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] font-bold text-blurty-dark">
+                        BLURTY EST. 2026
+                    </div>
+                </div>
+
+                <!-- Right Brand Story -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-block bg-blurty-pinklight text-blurty-pink text-xs font-bold px-3 py-1 rounded-full">
+                        BRAND PHILOSOPHY
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-black text-blurty-dark leading-tight tracking-tight">
+                        "힙함에 러블리를 번지게 하다"<br>
+                        <span class="font-serif italic font-normal text-blurty-subtle">Blur + Flirty = BLURTY</span>
+                    </h2>
+
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                        BLURTY는 스트릿 무드의 과감한 실루엣 속에서 핑크, 리본, 셔링, 레이스와 같은 키치하고 여리여리한 디테일을 스머지(Smudge)하듯 자연스럽게 조합합니다. 
+                        격식 없이 편안하면서도 확실한 존재감을 드러내는 2030 여성을 위한 감성 패션 제안.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-white p-4 rounded-xl border border-blurty-border">
+                            <div class="w-7 h-7 rounded-lg bg-blurty-pinklight text-blurty-pink flex items-center justify-center text-xs font-bold mb-2">01</div>
+                            <h4 class="text-xs font-bold text-blurty-dark">자체 제작 (PB) 라인업</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">브랜드 자수 및 키치한 시그니처 참 포인트 적용</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-blurty-border">
+                            <div class="w-7 h-7 rounded-lg bg-blurty-dark text-white flex items-center justify-center text-xs font-bold mb-2">02</div>
+                            <h4 class="text-xs font-bold text-blurty-dark">트렌디한 핏 가이드</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">160cm 키작녀 맞춤 오버핏 & 로우라이즈 실루엣</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Lookbook Interactive Hotspot Section -->
+    <section id="lookbook-interactive" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-blurty-border clean-shadow">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-2">
+                <div>
+                    <span class="text-xs font-bold text-blurty-pink uppercase tracking-widest">INTERACTIVE LOOKBOOK</span>
+                    <h3 class="text-2xl font-extrabold text-blurty-dark mt-1">2026 FW SIGNATURE SET</h3>
+                </div>
+                <p class="text-xs text-gray-400">사진 속 <i class="fa-solid fa-circle-plus text-blurty-pink"></i> 포인트를 눌러 착장을 확인하세요</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Interactive Image -->
+                <div class="lg:col-span-7 relative rounded-2xl overflow-hidden shadow-sm group">
+                    <img src="./images/clo_1.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80';" alt="Trendy K-Fashion Outfit" class="w-full h-[520px] object-cover object-top">
+                    
+                    <!-- Hotspot 1: Top -->
+                    <div class="absolute top-[28%] left-[48%] cursor-pointer group/spot" onclick="showHotspotProduct(1)">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="hotspot-pulse absolute inline-flex h-full w-full rounded-full bg-blurty-pink opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-7 w-7 bg-blurty-pink text-white font-bold text-xs items-center justify-center shadow-md"><i class="fa-solid fa-plus text-[10px]"></i></span>
+                        </span>
+                    </div>
+
+                    <!-- Hotspot 2: Bottom -->
+                    <div class="absolute top-[58%] left-[45%] cursor-pointer group/spot" onclick="showHotspotProduct(8)">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="hotspot-pulse absolute inline-flex h-full w-full rounded-full bg-blurty-pink opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-7 w-7 bg-blurty-pink text-white font-bold text-xs items-center justify-center shadow-md"><i class="fa-solid fa-plus text-[10px]"></i></span>
+                        </span>
+                    </div>
+
+                    <!-- Hotspot 3: Outerwear -->
+                    <div class="absolute top-[85%] left-[58%] cursor-pointer group/spot" onclick="showHotspotProduct(4)">
+                        <span class="relative flex h-8 w-8 items-center justify-center">
+                            <span class="hotspot-pulse absolute inline-flex h-full w-full rounded-full bg-blurty-pink opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-7 w-7 bg-blurty-pink text-white font-bold text-xs items-center justify-center shadow-md"><i class="fa-solid fa-plus text-[10px]"></i></span>
+                        </span>
+                    </div>
+
+                    <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-blurty-dark shadow-sm">
+                        OUTFIT SET #01 — ALL BLACK STREET CUTOUT
+                    </div>
+                </div>
+
+                <!-- Outfit Items Breakdown -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="border-b border-blurty-border pb-3">
+                        <span class="text-[11px] font-bold text-blurty-pink uppercase">COMPLETE THE LOOK</span>
+                        <h4 class="text-lg font-extrabold text-blurty-dark mt-0.5">올블랙 힙걸 시그니처 세트</h4>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 bg-blurty-graybg rounded-xl border border-blurty-border hover:border-blurty-dark transition-all cursor-pointer" onclick="openQuickView(1)">
+                            <img src="./images/clo_1.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&auto=format&fit=crop&q=80';" alt="Top" class="w-14 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <span class="text-[9px] text-blurty-pink font-bold uppercase">TOPS [PB]</span>
+                                <h5 class="text-xs font-bold text-blurty-dark">컷아웃 오프숄더 골지 탑</h5>
+                                <p class="text-xs text-gray-500 font-bold mt-0.5">₩38,000</p>
+                            </div>
+                            <button class="bg-blurty-dark text-white p-2 rounded-lg text-xs hover:bg-blurty-pink transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 bg-blurty-graybg rounded-xl border border-blurty-border hover:border-blurty-dark transition-all cursor-pointer" onclick="openQuickView(8)">
+                            <img src="./images/clo_8.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&auto=format&fit=crop&q=80';" alt="Bottom" class="w-14 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <span class="text-[9px] text-gray-500 uppercase">BOTTOMS</span>
+                                <h5 class="text-xs font-bold text-blurty-dark">하이웨스트 비건 레더 숏팬츠</h5>
+                                <p class="text-xs text-gray-500 font-bold mt-0.5">₩49,000</p>
+                            </div>
+                            <button class="bg-blurty-dark text-white p-2 rounded-lg text-xs hover:bg-blurty-pink transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 bg-blurty-graybg rounded-xl border border-blurty-border hover:border-blurty-dark transition-all cursor-pointer" onclick="openQuickView(4)">
+                            <img src="./images/clo_4.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?w=200&auto=format&fit=crop&q=80';" alt="Outerwear" class="w-14 h-16 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <span class="text-[9px] text-gray-500 uppercase">OUTERWEAR</span>
+                                <h5 class="text-xs font-bold text-blurty-dark">스카이블루 후디 & 재킷 셋업</h5>
+                                <p class="text-xs text-gray-500 font-bold mt-0.5">₩79,000</p>
+                            </div>
+                            <button class="bg-blurty-dark text-white p-2 rounded-lg text-xs hover:bg-blurty-pink transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="addFullOutfitToCart()" class="w-full bg-blurty-pink text-white font-bold text-xs py-3.5 rounded-xl hover:bg-blurty-dark transition-colors tracking-wider shadow-md">
+                            세트 한 번에 장바구니 담기 (₩166,000)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Reels & Shorts Feed -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-blurty-border">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-2">
+            <div>
+                <span class="text-xs font-bold text-blurty-pink uppercase tracking-widest">MEDIA & REELS</span>
+                <h3 class="text-2xl font-extrabold text-blurty-dark mt-0.5">@BLURTY_OFFICIAL</h3>
+            </div>
+            <p class="text-xs text-gray-400">인스타그램 릴스 & 유튜브 쇼츠 속 착장 가이드</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="relative group aspect-[9/16] rounded-2xl overflow-hidden shadow-sm border border-blurty-border cursor-pointer">
+                <img src="./images/clo_3.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&auto=format&fit=crop&q=80';" alt="Reels 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="text-blurty-pink text-[10px] font-bold"><i class="fa-brands fa-instagram mr-1"></i> REELS</span>
+                    <p class="text-xs font-semibold mt-1 line-clamp-2">"버터 옐로우 니트에 아일렛 리본 포인트 연출법 💛"</p>
+                </div>
+            </div>
+
+            <div class="relative group aspect-[9/16] rounded-2xl overflow-hidden shadow-sm border border-blurty-border cursor-pointer">
+                <img src="./images/clo_5.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&auto=format&fit=crop&q=80';" alt="Reels 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="text-red-400 text-[10px] font-bold"><i class="fa-brands fa-youtube mr-1"></i> SHORTS</span>
+                    <p class="text-xs font-semibold mt-1 line-clamp-2">"빈티지 데미지 크롭 후디 X 롱스커트 조합 🖤"</p>
+                </div>
+            </div>
+
+            <div class="relative group aspect-[9/16] rounded-2xl overflow-hidden shadow-sm border border-blurty-border cursor-pointer">
+                <img src="./images/clo_6.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=600&auto=format&fit=crop&q=80';" alt="Reels 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="text-blurty-pink text-[10px] font-bold"><i class="fa-brands fa-instagram mr-1"></i> REELS</span>
+                    <p class="text-xs font-semibold mt-1 line-clamp-2">"프릴 블라우스 & 데님 롱스커트 가을 코디 모음 🌾"</p>
+                </div>
+            </div>
+
+            <div class="relative group aspect-[9/16] rounded-2xl overflow-hidden shadow-sm border border-blurty-border cursor-pointer">
+                <img src="./images/clo_7.jpeg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&auto=format&fit=crop&q=80';" alt="Reels 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="text-red-400 text-[10px] font-bold"><i class="fa-brands fa-youtube mr-1"></i> SHORTS</span>
+                    <p class="text-xs font-semibold mt-1 line-clamp-2">"스포티 티셔츠에 플리츠 주름 스커트 믹스매치 🤍"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Drawer Overlay -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white text-blurty-dark p-6 flex flex-col justify-between shadow-2xl">
+                <div>
+                    <div class="flex items-center justify-between border-b border-blurty-border pb-4">
+                        <h3 class="text-lg font-extrabold flex items-center gap-2">
+                            <i class="fa-solid fa-bag-shopping text-blurty-pink"></i> SHOPPING CART
+                        </h3>
+                        <button onclick="toggleCart()" class="text-gray-400 hover:text-blurty-dark p-2">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+
+                    <div id="cart-items" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="border-t border-blurty-border pt-4 space-y-3">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>상품 금액</span>
+                        <span id="cart-subtotal" class="text-blurty-dark font-bold">₩0</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>배송비 (5만원 이상 무료)</span>
+                        <span id="cart-shipping" class="text-blurty-dark">₩0</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-bold text-blurty-dark border-t border-blurty-border pt-2">
+                        <span>총 결제금액</span>
+                        <span id="cart-total" class="text-blurty-pink text-base">₩0</span>
+                    </div>
+                    <button onclick="checkoutAlert()" class="w-full bg-blurty-dark hover:bg-blurty-pink text-white font-bold py-3.5 rounded-xl text-xs transition-colors shadow-md">
+                        주문하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeQuickView()"></div>
+        <div class="relative bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 overflow-hidden z-10 text-blurty-dark shadow-2xl border border-blurty-border">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-gray-400 hover:text-blurty-dark text-lg p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="quickview-content" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4 hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleSearchModal()"></div>
+        <div class="relative max-w-lg w-full bg-white p-6 rounded-2xl border border-blurty-border z-10 shadow-2xl">
+            <div class="flex items-center border-b border-blurty-dark pb-2">
+                <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3"></i>
+                <input type="text" id="search-input" onkeyup="handleSearch(this.value)" placeholder="찾으시는 상품을 입력하세요 (크롭티, 카고, 부츠...)" class="bg-transparent border-none text-blurty-dark focus:outline-none w-full text-xs">
+                <button onclick="toggleSearchModal()" class="text-gray-400 text-xs font-mono">ESC</button>
+            </div>
+            <div id="search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2 text-xs">
+                <p class="text-gray-400 italic">검색어를 입력해보세요...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-blurty-dark text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-blurty-pink text-base"></i>
+        <span id="toast-message" class="text-xs font-semibold">장바구니에 담겼습니다!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white text-gray-500 text-xs border-t border-blurty-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <span class="text-2xl font-black text-blurty-dark lowercase">blurty</span>
+                <p class="text-[11px] leading-relaxed text-gray-500">
+                    힙 베이스 & 러블리 포인트 감성 여성복 브랜드.<br>
+                    스트릿 무드와 걸리쉬 무드의 경계를 허무는 나만의 특별한 실루엣.
+                </p>
+                <div class="flex space-x-2 pt-1">
+                    <a href="#" class="w-7 h-7 rounded-full bg-blurty-graybg flex items-center justify-center text-gray-600 hover:text-blurty-pink"><i class="fa-brands fa-instagram text-xs"></i></a>
+                    <a href="#" class="w-7 h-7 rounded-full bg-blurty-graybg flex items-center justify-center text-gray-600 hover:text-blurty-pink"><i class="fa-brands fa-youtube text-xs"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-blurty-dark font-bold mb-3">SHOP CATEGORIES</h5>
+                <ul class="space-y-2 text-[11px]">
+                    <li><a href="#tops" onclick="filterCategory('TOPS')" class="hover:text-blurty-pink">TOPS (상의)</a></li>
+                    <li><a href="#bottoms" onclick="filterCategory('BOTTOMS')" class="hover:text-blurty-pink">BOTTOMS (하의)</a></li>
+                    <li><a href="#outerwear" onclick="filterCategory('OUTERWEAR')" class="hover:text-blurty-pink">OUTERWEAR (아우터)</a></li>
+                    <li><a href="#accessories" onclick="filterCategory('ACCESSORIES')" class="hover:text-blurty-pink">ACCESSORIES (액세서리)</a></li>
+                    <li><a href="#shoes" onclick="filterCategory('SHOES')" class="hover:text-blurty-pink">SHOES (신발)</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-blurty-dark font-bold mb-3">CUSTOMER CARE</h5>
+                <ul class="space-y-1.5 text-[11px]">
+                    <li>CS CENTER: 1588-0000</li>
+                    <li>MON - FRI: 10:00 - 18:00 (LUNCH 12:30 - 13:30)</li>
+                    <li>EMAIL: support@blurty.co.kr</li>
+                    <li>BANK: KB국민 123456-04-999999 (주)블러티</li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-blurty-dark font-bold mb-3">NEWSLETTER</h5>
+                <p class="text-[11px] text-gray-500 mb-2">신상 및 에이블리/자사몰 단독 할인 소식을 받아보세요.</p>
+                <div class="flex">
+                    <input type="email" placeholder="이메일 주소 입력" class="bg-blurty-graybg border border-blurty-border px-3 py-2 text-[11px] text-blurty-dark rounded-l-lg focus:outline-none focus:border-blurty-dark w-full">
+                    <button class="bg-blurty-dark text-white px-4 py-2 font-bold hover:bg-blurty-pink transition-colors rounded-r-lg text-xs">구독</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 pt-6 border-t border-blurty-border flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-400">
+            <p>© 2026 BLURTY. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-4 mt-2 md:mt-0">
+                <a href="#" class="hover:underline">이용약관</a>
+                <a href="#" class="hover:underline">개인정보처리방침</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "컷아웃 오프숄더 골지 탑 & 밴딩 팬츠",
+                enCategory: "TOPS",
+                isPB: true,
+                price: 38000,
+                rating: 4.9,
+                discount: "10%",
+                badge: "BEST PB",
+                image: "./images/clo_1.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80",
+                desc: "허리 라인 컷아웃과 리본 스트랩으로 고혹적인 힙 무드를 연출하는 블러티 단독 오프숄더 롱슬리브 탑입니다."
+            },
+            {
+                id: 2,
+                name: "골드 벨벳 카울넥 크롭 롱슬리브",
+                enCategory: "TOPS",
+                isPB: false,
+                price: 34000,
+                rating: 4.8,
+                discount: "15%",
+                badge: "HOT",
+                image: "./images/clo_2.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&auto=format&fit=crop&q=80",
+                desc: "우아한 네크라인 드레이핑과 은은한 벨벳 광택으로 가을 감성을 담아낸 리치 크롭 탑."
+            },
+            {
+                id: 3,
+                name: "버터 니트 레이스업 사이드 아일렛 탑",
+                enCategory: "TOPS",
+                isPB: true,
+                price: 41000,
+                rating: 5.0,
+                discount: "10%",
+                badge: "PB SIGNATURE",
+                image: "./images/clo_3.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80",
+                desc: "사이드 레이스업 끈 디테일로 실루엣 조절이 가능하며 여리여리한 매력을 살린 버터 옐로우 컬러 크롭 니트."
+            },
+            {
+                id: 4,
+                name: "스카이블루 후디 & 오버핏 재킷 셋업",
+                enCategory: "OUTERWEAR",
+                isPB: true,
+                price: 79000,
+                rating: 4.9,
+                discount: "5%",
+                badge: "NEW PB",
+                image: "./images/clo_4.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80",
+                desc: "레이스 자수 블루 후드와 매니시한 테일러드 아우터의 감각적인 레이어드 룩."
+            },
+            {
+                id: 5,
+                name: "빈티지 데미지 크롭 후드 & 핀턱 롱스커트",
+                enCategory: "TOPS",
+                isPB: false,
+                price: 58000,
+                rating: 4.8,
+                discount: "12%",
+                badge: "TREND",
+                image: "./images/clo_5.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&auto=format&fit=crop&q=80",
+                desc: "크롭한 빈티지 디스트로이드 후드티에 챠콜 컬러 플리츠 롱스커트의 힙 무드 매치."
+            },
+            {
+                id: 6,
+                name: "프렌치 셔링 프릴 블라우스 & 데님 롱스커트",
+                enCategory: "BOTTOMS",
+                isPB: false,
+                price: 62000,
+                rating: 4.9,
+                discount: "",
+                badge: "MUST HAVE",
+                image: "./images/clo_6.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=800&auto=format&fit=crop&q=80",
+                desc: "로맨틱한 프릴 셔링 블라우스와 밑단 절개 스티치가 돋보이는 A라인 데님 롱 스커트."
+            },
+            {
+                id: 7,
+                name: "러블리 힙 그래픽티 & 화이트 주름 스커트",
+                enCategory: "BOTTOMS",
+                isPB: false,
+                price: 45000,
+                rating: 4.7,
+                discount: "10%",
+                badge: "POPULAR",
+                image: "./images/clo_7.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&auto=format&fit=crop&q=80",
+                desc: "스포티한 LOVELY HIP 타이포 그래픽 티셔츠와 화사한 풍성 플리츠 스커트 세트."
+            },
+            {
+                id: 8,
+                name: "시스루 레이스 프릴 탑 & 레더 숏팬츠",
+                enCategory: "BOTTOMS",
+                isPB: true,
+                price: 49000,
+                rating: 4.9,
+                discount: "10%",
+                badge: "BEST PB",
+                image: "./images/clo_8.jpeg",
+                fallbackImage: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=800&auto=format&fit=crop&q=80",
+                desc: "시스루 레이스 화이트 블라우스와 페어링한 힙하고 도회적인 하이웨스트 블랙 레더 팬츠."
+            }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let currentCategory = 'ALL';
+
+        function formatKRW(amount) {
+            return '₩' + amount.toLocaleString();
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-gray-400 text-xs">해당 카테고리에 등록된 상품이 없습니다.</div>`;
+                return;
+            }
+
+            items.forEach(product => {
+                const isWishlisted = wishlist.includes(product.id);
+                const cardHtml = `
+                    <div class="group cursor-pointer flex flex-col justify-between" onclick="openQuickView(${product.id})">
+                        <div>
+                            <div class="relative img-zoom bg-blurty-graybg rounded-2xl overflow-hidden mb-3 aspect-[3/4] border border-blurty-border">
+                                <img src="${product.image}" onerror="this.onerror=null; this.src='${product.fallbackImage}';" alt="${product.name}" class="w-full h-full object-cover">
+                                
+                                <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+                                    ${product.isPB ? `<span class="bg-blurty-pink text-white text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">PB</span>` : ''}
+                                    ${product.discount ? `<span class="bg-blurty-dark text-white text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">${product.discount}</span>` : ''}
+                                </div>
+
+                                <button onclick="event.stopPropagation(); toggleWishlist(${product.id})" class="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-blurty-dark hover:text-blurty-pink transition-colors shadow-sm">
+                                    <i class="${isWishlisted ? 'fa-solid text-blurty-pink' : 'fa-regular'} fa-heart text-xs"></i>
+                                </button>
+                            </div>
+
+                            <div class="px-1">
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">${product.enCategory}</span>
+                                <h4 class="text-xs font-bold text-blurty-dark group-hover:text-blurty-pink transition-colors line-clamp-1 mt-0.5">${product.name}</h4>
+                            </div>
+                        </div>
+
+                        <div class="px-1 mt-2 flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-blurty-dark">${formatKRW(product.price)}</span>
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" class="text-[11px] font-bold text-gray-400 hover:text-blurty-pink transition-colors p-1" title="장바구니 담기">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const btnText = btn.innerText.trim();
+                if (btnText.includes(cat)) {
+                    btn.className = "cat-btn active px-4 py-2 rounded-full bg-blurty-dark text-white transition-all shadow-sm";
+                } else if (btnText.includes('PB LINE')) {
+                    btn.className = "cat-btn px-4 py-2 rounded-full bg-blurty-pinklight text-blurty-pink font-bold hover:bg-blurty-pink hover:text-white transition-all";
+                } else {
+                    btn.className = "cat-btn px-4 py-2 rounded-full bg-blurty-graybg text-gray-600 hover:text-blurty-dark transition-all";
+                }
+            });
+
+            if (cat === 'ALL') {
+                renderProducts(products);
+            } else if (cat === 'PB LINE') {
+                renderProducts(products.filter(p => p.isPB));
+            } else {
+                renderProducts(products.filter(p => p.enCategory === cat));
+            }
+        }
+
+        function toggleWishlist(id) {
+            const index = wishlist.indexOf(id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast("위시리스트에서 삭제되었습니다.");
+            } else {
+                wishlist.push(id);
+                showToast("위시리스트에 추가되었습니다 ❤️");
+            }
+            document.getElementById('wishlist-count').innerText = wishlist.length;
+            filterCategory(currentCategory);
+        }
+
+        function openWishlist() {
+            if (wishlist.length === 0) {
+                showToast("위시리스트가 비어있습니다! 하트 아이콘을 클릭해보세요.");
+                return;
+            }
+            const wishlistedProducts = products.filter(p => wishlist.includes(p.id));
+            renderProducts(wishlistedProducts);
+            
+            const catSection = document.getElementById('catalog');
+            if (catSection) {
+                catSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            showToast(`저장된 위시리스트 ${wishlist.length}개 상품을 보여줍니다 ❤️`);
+        }
+
+        function showHotspotProduct(id) {
+            openQuickView(id);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`${product.name} 상품이 담겼습니다!`);
+        }
+
+        function addFullOutfitToCart() {
+            addToCart(1);
+            addToCart(8);
+            addToCart(4);
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cart-count');
+            const itemsElem = document.getElementById('cart-items');
+            const subtotalElem = document.getElementById('cart-subtotal');
+            const shippingElem = document.getElementById('cart-shipping');
+            const totalElem = document.getElementById('cart-total');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const shipping = subtotal > 50000 || subtotal === 0 ? 0 : 3000;
+            const grandTotal = subtotal + shipping;
+
+            countElem.innerText = totalQty;
+            subtotalElem.innerText = formatKRW(subtotal);
+            shippingElem.innerText = shipping === 0 ? '무료' : formatKRW(shipping);
+            totalElem.innerText = formatKRW(grandTotal);
+
+            if (cart.length === 0) {
+                itemsElem.innerHTML = `<p class="text-center text-xs text-gray-400 py-12">장바구니가 비어있습니다.</p>`;
+                return;
+            }
+
+            itemsElem.innerHTML = '';
+            cart.forEach(item => {
+                const itemHtml = `
+                    <div class="flex items-center gap-3 p-3 bg-blurty-graybg rounded-xl border border-blurty-border">
+                        <img src="${item.image}" onerror="this.onerror=null; this.src='${item.fallbackImage}';" alt="${item.name}" class="w-12 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h5 class="text-xs font-bold text-blurty-dark line-clamp-1">${item.name}</h5>
+                            <p class="text-xs text-blurty-pink font-bold mt-0.5">${formatKRW(item.price)}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="changeQty(${item.id}, -1)" class="w-5 h-5 bg-white text-blurty-dark rounded-md text-xs flex items-center justify-center border border-blurty-border">-</button>
+                                <span class="text-xs font-bold px-1">${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)" class="w-5 h-5 bg-white text-blurty-dark rounded-md text-xs flex items-center justify-center border border-blurty-border">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-2 text-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                itemsElem.insertAdjacentHTML('beforeend', itemHtml);
+            });
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function openQuickView(id) {
+            const p = products.find(item => item.id === id);
+            const container = document.getElementById('quickview-content');
+            
+            container.innerHTML = `
+                <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100">
+                    <img src="${p.image}" onerror="this.onerror=null; this.src='${p.fallbackImage}';" alt="${p.name}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-[10px] text-blurty-pink font-bold uppercase tracking-wider">${p.enCategory} ${p.isPB ? '• PB SIGNATURE' : ''}</span>
+                        <h3 class="text-lg font-bold text-blurty-dark mt-1">${p.name}</h3>
+                        <p class="text-2xl font-black text-blurty-dark mt-2">${formatKRW(p.price)}</p>
+                        <p class="text-xs text-gray-600 mt-3 leading-relaxed">${p.desc}</p>
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-blurty-border">
+                        <div class="text-xs text-gray-500">
+                            <span class="block text-[10px] font-bold uppercase mb-1">COLOR & SIZE</span>
+                            <div class="flex gap-2 font-mono">
+                                <span class="px-3 py-1 bg-blurty-dark text-white rounded-lg text-xs">FREE</span>
+                                <span class="px-3 py-1 bg-blurty-graybg text-gray-500 rounded-lg text-xs border border-blurty-border">BLACK</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button onclick="addToCart(${p.id}); closeQuickView();" class="flex-1 bg-blurty-pink hover:bg-blurty-dark text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-colors shadow-sm">
+                                장바구니 담기
+                            </button>
+                            <button onclick="toggleWishlist(${p.id})" class="px-4 border border-blurty-border text-blurty-dark hover:border-blurty-pink rounded-xl transition-colors">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quickview-modal').classList.remove('hidden');
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickview-modal').classList.add('hidden');
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function handleSearch(query) {
+            const resContainer = document.getElementById('search-results');
+            if (!query.trim()) {
+                resContainer.innerHTML = `<p class="text-gray-400 italic">검색어를 입력해보세요...</p>`;
+                return;
+            }
+
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.enCategory.toLowerCase().includes(query.toLowerCase()));
+            
+            if (filtered.length === 0) {
+                resContainer.innerHTML = `<p class="text-gray-400">"${query}"에 일치하는 상품이 없습니다.</p>`;
+                return;
+            }
+
+            resContainer.innerHTML = '';
+            filtered.forEach(p => {
+                resContainer.insertAdjacentHTML('beforeend', `
+                    <div onclick="openQuickView(${p.id}); toggleSearchModal();" class="flex items-center gap-3 p-2 hover:bg-blurty-graybg rounded-xl cursor-pointer border-b border-blurty-border">
+                        <img src="${p.image}" onerror="this.onerror=null; this.src='${p.fallbackImage}';" class="w-8 h-10 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h5 class="font-bold text-blurty-dark text-xs">${p.name}</h5>
+                            <span class="text-blurty-pink font-bold text-[11px]">${formatKRW(p.price)}</span>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        function checkoutAlert() {
+            if (cart.length === 0) {
+                showToast("장바구니가 비어있습니다!");
+                return;
+            }
+            showToast("BLURTY D2C 결제 테스트 창입니다.");
+        }
+
+        window.onload = function() {
+            renderProducts(products);
+            updateCartUI();
+        }
+    </script>
+</body>
+</html>
